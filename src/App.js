@@ -20,7 +20,9 @@ class App extends Component {
     const country = e.target.elements.country.value;
     try {
       const API = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=4c8dd3d3abc442a432a5a6186678f244&units=metric`
+        `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${
+          process.env.REACT_APP_WEATHER_API_KEY
+        }&units=metric`
       );
       const data = await API.json();
 
