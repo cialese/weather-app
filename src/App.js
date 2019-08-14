@@ -3,6 +3,8 @@ import Form from './Form';
 import Weather from './Weather';
 import Titles from './Titles';
 
+const  API_KEY = process.env.REACT_APP_WEATHER_API_KEY
+
 class App extends Component {
   state = {
     temperature: undefined,
@@ -21,7 +23,7 @@ class App extends Component {
     try {
       const API = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${
-          process.env.REACT_APP_WEATHER_API_KEY
+          API_KEY
         }&units=metric`
       );
       const data = await API.json();
