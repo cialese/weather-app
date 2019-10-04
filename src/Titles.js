@@ -4,7 +4,7 @@ const Titles = () => (
   <div>
     <h1 className='title-container__title'>Weather App</h1>
     <h3 className='title-container__subtitle'>
-      Descubre la temperatura, condiciones climatológicas y más...
+      Find out the temperature, weather conditions and more...
     </h3>
   </div>
 );

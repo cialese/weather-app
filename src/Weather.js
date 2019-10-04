@@ -13,7 +13,7 @@ const Weather = ({
     {city && country && (
       <p className='weather__key'>
         {' '}
-        Ubicación:
+        Location:
         <span className='weather__value'>
           {' '}
           {city}, {country}
@@ -23,28 +23,28 @@ const Weather = ({
     {temperature && (
       <p className='weather__key'>
         {' '}
-        Temperatura:
+        Temperature:
         <span className='weather__value'> {temperature}°C </span>
       </p>
     )}
     {humidity && (
       <p className='weather__key'>
         {' '}
-        Humedad:
+        Humidity:
         <span className='weather__value'> {humidity}% </span>
       </p>
     )}
     {wind && (
       <p className='weather__key'>
         {' '}
-        Viento:
+        Wind:
         <span className='weather__value'> {wind}Km/hr </span>
       </p>
     )}
     {description && (
       <p className='weather__key'>
         {' '}
-        Condiciones:
+        Conditions:
         <span className='weather__value'> {description} </span>
       </p>
     )}

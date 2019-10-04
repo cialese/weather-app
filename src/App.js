@@ -4,18 +4,24 @@ import Weather from './Weather';
 import Titles from './Titles';
 
 class App extends Component {
-  state = {
-    temperature: undefined,
-    city: undefined,
-    country: undefined,
-    humidity: undefined,
-    wind: undefined,
-    description: undefined,
-    error: undefined
-  };
+  constructor() {
+    super();
+    this.state = {
+      temperature: undefined,
+      city: undefined,
+      country: undefined,
+      humidity: undefined,
+      wind: undefined,
+      description: undefined,
+      error: undefined
+    };
+
+    this.baseState = this.state;
+  }
 
   getWeather = async e => {
     e.preventDefault();
+
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
     try {
@@ -36,6 +42,12 @@ class App extends Component {
         });
       } else {
         this.setState({
+          temperature: this.baseState.temperature,
+          city: this.baseState.name,
+          country: this.baseState.country,
+          humidity: this.baseState.humidity,
+          wind: this.baseState.wind,
+          description: this.baseState.description,
           error: 'Completa los campos'
         });
       }

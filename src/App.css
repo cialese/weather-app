@@ -7,7 +7,7 @@ body {
 }
 
 .wrapper {
-  background: rgba(255, 145, 85, 0.685);
+  background: rgba(255, 246, 241, 0.877);
 
   /* background: -webkit-linear-gradient(to left, #ff5e62, #ff9966);
   background: linear-gradient(to left, #ff5e62, #ff9966); */
@@ -74,11 +74,11 @@ input[type='text'] {
 }
 
 ::placeholder {
-  color: rgb(36, 35, 35);
+  color: rgb(168, 161, 161);
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #efe8da inset;
+  -webkit-box-shadow: 0 0 0 30px #f8f7f7 inset;
   -webkit-text-fill-color: #393e42 !important;
 }
 
