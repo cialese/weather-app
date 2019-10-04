@@ -95,8 +95,8 @@ button {
   font-weight: 100;
 }
 
-button:active {
-  outline: none;
+button:focus {
+  outline: 0;
 }
 
 .weather__info {

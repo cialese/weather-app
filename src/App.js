@@ -19,6 +19,8 @@ class App extends Component {
     this.baseState = this.state;
   }
 
+  API_KEY=  process.env.REACT_APP_WEATHER_API_KEY
+
   getWeather = async e => {
     e.preventDefault();
 
