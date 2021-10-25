@@ -1,92 +1,69 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Form from './Form';
-import Weather from './Weather';
-import Titles from './Titles';
+import WeatherData from './WeatherData';
+import {WeatherCover} from './WeatherCover';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      temperature: undefined,
-      city: undefined,
-      country: undefined,
-      humidity: undefined,
-      wind: undefined,
-      description: undefined,
-      error: undefined
-    };
 
-    this.baseState = this.state;
-  }
+function App() {
+  const [weatherData, setWeatherData] = useState({})
+  const [error, setError] = useState('')
 
-  API_KEY=  process.env.REACT_APP_WEATHER_API_KEY
+  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY
 
-  getWeather = async e => {
-    e.preventDefault();
-
-    const city = e.target.elements.city.value;
-    const country = e.target.elements.country.value;
+  const setAPIData = async ({ city, country }) => {
     try {
       const API = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=4c8dd3d3abc442a432a5a6186678f244&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`
       );
       const data = await API.json();
 
-      if (city && country) {
-        this.setState({
-          temperature: data.main.temp,
-          city: data.name,
-          country: data.sys.country,
-          humidity: data.main.humidity,
-          wind: data.wind.speed,
-          description: data.weather[0].description,
-          error: ''
-        });
-      } else {
-        this.setState({
-          temperature: this.baseState.temperature,
-          city: this.baseState.name,
-          country: this.baseState.country,
-          humidity: this.baseState.humidity,
-          wind: this.baseState.wind,
-          description: this.baseState.description,
-          error: 'Completa los campos'
-        });
-      }
+      if (!(city && country)) throw Error('Complete all fields');
+      if (data.code ===  400) throw Error(data.message);
+
+      const { main, name, sys, wind, weather } = data;
+      setWeatherData({
+        temperature: main.temp,
+        city: name,
+        country: sys.country,
+        humidity: main.humidity,
+        wind: wind.speed,
+        condition: weather[0].description,
+        conditionIcon: `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
+      });
+      setError('');
     } catch (err) {
-      console.log(err);
+      setWeatherData({});
+      setError(err.message);
     }
   };
 
-  render() {
-    return (
-      <div>
-        <div className='wrapper'>
-          <div className='main'>
-            <div className='container'>
-              <div className='row'>
-                <div className='col-5 col-xs-12 title-container'>
-                  <Titles />
-                </div>
-                <div className='col-7 col-xs-12 form-container'>
-                  <Form getWeather={this.getWeather} />
-                  <Weather
-                    temperature={this.state.temperature}
-                    humidity={this.state.humidity}
-                    city={this.state.city}
-                    country={this.state.country}
-                    wind={this.state.wind}
-                    description={this.state.description}
-                    error={this.state.error}
-                  />
-                </div>
-              </div>
-            </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { target: { elements } } = e;
+    const city = elements.city.value;
+    const country = elements.country.value;
+
+    await setAPIData({ city, country })
+  };
+
+  return (
+    <div className='wrapper'>
+      <div className='main'>
+        <div className='container card-wrapper'>
+          <div className='row'>
+            <section className='col-5 col-xs-12 title-container'>
+              <WeatherCover />
+            </section>
+            <section className='col-7 col-xs-12 form-container'>
+              <Form onSubmit={handleSubmit} />
+              <WeatherData data={weatherData} error={error} />
+            </section>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Form = ({ getWeather }) => {
+const Form = ({ onSubmit }) => {
   return (
-    <form onSubmit={getWeather}>
+    <form onSubmit={ onSubmit }>
       <input type='text' name='city' placeholder='City' />
       <input type='text' name='country' placeholder='Country' />
       <button>Get weather</button>

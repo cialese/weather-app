@@ -25,6 +25,10 @@ body {
   margin: 0 auto;
 }
 
+.card-wrapper {
+  max-width: 100%;
+}
+
 .title-container {
   height: 90vh;
   background: url('./img/weather.JPEG') center center no-repeat;
@@ -54,8 +58,9 @@ body {
 .form-container {
   background-color: rgba(247, 247, 247, 0.911);
   height: 90vh;
-  padding-top: 100px;
-  padding-left: 50px;
+  padding-top: 15%;
+  padding-bottom: 15%;
+  padding-left: 7%;
 }
 
 input[type='text'] {
@@ -100,10 +105,11 @@ button:focus {
 }
 
 .weather__info {
-  width: 60%;
   font-size: 20px;
   font-weight: 200;
   letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .weather__key {
@@ -127,4 +133,9 @@ button:focus {
   font-size: 20px;
   letter-spacing: 1px;
   font-weight: 200;
+}
+
+.weather__icon {
+  height: 120px;
+  margin-right: 100px;
 }
