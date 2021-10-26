@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from './Form';
 import WeatherData from './WeatherData';
 import {WeatherCover} from './WeatherCover';
 
 
 function App() {
-  const [weatherData, setWeatherData] = useState({})
+  const [weatherData, setWeatherData] = useState({});
+  const [form, setForm] = useState({city: '', country: ''});
+  const [isDisabled, setIsDisabled] = useState(false)
   const [error, setError] = useState('')
 
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY
+
+
+  useEffect(() => {
+    setIsDisabled(true)
+    if(form.city) setIsDisabled(false)
+  }, [form.city])
+
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    })
+  }
 
   const setAPIData = async ({ city, country }) => {
     try {
@@ -17,8 +34,7 @@ function App() {
       );
       const data = await API.json();
 
-      if (!(city && country)) throw Error('Complete all fields');
-      if (data.code ===  400) throw Error(data.message);
+      if (data.cod ===  "404") throw Error(data.message);
 
       const { main, name, sys, wind, weather } = data;
       setWeatherData({
@@ -52,11 +68,11 @@ function App() {
       <div className='main'>
         <div className='container card-wrapper'>
           <div className='row'>
-            <section className='col-5 col-xs-12 title-container'>
+            <section className='col-12 col-lg-5  title-container'>
               <WeatherCover />
             </section>
-            <section className='col-7 col-xs-12 form-container'>
-              <Form onSubmit={handleSubmit} />
+            <section className='col-12 col-lg-7 form-container'>
+              <Form onSubmit={ handleSubmit } isDisabled={ isDisabled } form={ form } handleChange={ handleChange}/>
               <WeatherData data={weatherData} error={error} />
             </section>
           </div>

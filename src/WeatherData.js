@@ -44,7 +44,7 @@ const WeatherData = ({ data, error }) => {
           </p>
         </div>
       ) : null }
-      { condition ? <div><img src={ conditionIcon } alt='weather condition' className='weather__icon'/> </div>: null }
+      { condition ? <div className='weather__icon-container'><img src={ conditionIcon } alt='weather condition' className='weather__icon'/> </div>: null }
 
       { error ? <p className='weather__error'>{ error }</p> : null }
     </div>
