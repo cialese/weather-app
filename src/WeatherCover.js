@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Titles = () => (
+const WeatherTitle = () => (
   <div>
     <h1 className='title-container__title'>Weather App</h1>
     <h3 className='title-container__subtitle'>
@@ -9,4 +9,4 @@ const Titles = () => (
   </div>
 );
 
-export default Titles;
+export const WeatherCover = React.memo(WeatherTitle);
